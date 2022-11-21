@@ -31,6 +31,14 @@ const PinSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    pinType: {
+      type: String,
+      required: true,
+    },
+    pinColor: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );
