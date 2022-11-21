@@ -87,6 +87,22 @@ router.post("/register", async (req, res) => {
   }
 });
 
+//UPDATE PROFILE PICTURE
+router.put("/updateProfilePicture", async (req, res) => {
+  const id = req.body.id;
+  const profilePicture = req.body.profilePicture;
+
+  User.findByIdAndUpdate(
+    id,
+    { $set: { profilePicture: profilePicture } },
+    { new: false },
+    (err, doc) => {
+      if (err) return console.log(err);
+      res.json(doc);
+    }
+  );
+});
+
 //LOGIN
 router.post("/login", async (req, res) => {
   try {
@@ -117,6 +133,7 @@ router.post("/login", async (req, res) => {
     res.status(200).json({
       _id: user._id,
       username: user.username,
+      profilePicture: user.profilePicture,
       accessToken,
       refreshToken,
     });
@@ -134,7 +151,6 @@ router.post("/logout", verify, (req, res) => {
 
 //DELETE
 router.delete("/:id", verify, (req, res) => {
-  console.log(req);
   if (req.user._id === req.params._id || req.body.username === "adminman") {
     const { id } = req.body;
 
