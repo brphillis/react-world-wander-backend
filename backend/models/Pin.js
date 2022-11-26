@@ -2,26 +2,9 @@ const mongoose = require("mongoose");
 
 const PinSchema = new mongoose.Schema(
   {
-    username: {
+    pinType: {
       type: String,
       required: true,
-    },
-    title: {
-      type: String,
-      required: true,
-      min: 3,
-      max: 60,
-    },
-    desc: {
-      type: String,
-      required: true,
-      min: 3,
-    },
-    rating: {
-      type: Number,
-      required: true,
-      min: 0,
-      max: 5,
     },
     long: {
       type: Number,
@@ -31,14 +14,74 @@ const PinSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    pinType: {
-      type: String,
-      required: true,
-    },
     pinColor: {
       type: String,
       required: true,
     },
+    review: [
+      {
+        username: {
+          type: String,
+          required: true,
+        },
+        title: {
+          type: String,
+          required: true,
+          min: 3,
+          max: 60,
+        },
+        desc: {
+          type: String,
+          required: true,
+          min: 3,
+        },
+        rating: {
+          type: Number,
+          required: true,
+          min: 0,
+          max: 5,
+        },
+        pictures: {
+          type: Array,
+          required: false,
+        },
+      },
+    ],
+
+    // username: {
+    //   type: String,
+    //   required: true,
+    // },
+    // title: {
+    //   type: String,
+    //   required: true,
+    //   min: 3,
+    //   max: 60,
+    // },
+    // desc: {
+    //   type: String,
+    //   required: true,
+    //   min: 3,
+    // },
+    // rating: {
+    //   type: Number,
+    //   required: true,
+    //   min: 0,
+    //   max: 5,
+    // },
+
+    // pinType: {
+    //   type: String,
+    //   required: true,
+    // },
+    // pinColor: {
+    //   type: String,
+    //   required: true,
+    // },
+    // pictures: {
+    //   type: Array,
+    //   required: false,
+    // },
   },
   { timestamps: true }
 );
