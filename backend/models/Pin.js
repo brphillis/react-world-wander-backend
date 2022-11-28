@@ -2,9 +2,13 @@ const mongoose = require("mongoose");
 
 const PinSchema = new mongoose.Schema(
   {
-    pinType: {
+    name: {
       type: String,
       required: true,
+    },
+    pinType: {
+      type: String,
+      required: false,
     },
     long: {
       type: Number,
@@ -16,7 +20,7 @@ const PinSchema = new mongoose.Schema(
     },
     pinColor: {
       type: String,
-      required: true,
+      required: false,
     },
     review: [
       {
@@ -42,6 +46,10 @@ const PinSchema = new mongoose.Schema(
           max: 5,
         },
         pictures: {
+          type: Array,
+          required: false,
+        },
+        likes: {
           type: Array,
           required: false,
         },

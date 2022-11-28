@@ -23,6 +23,11 @@ const UserSchema = new mongoose.Schema(
       require: true,
       min: 6,
     },
+    contributions: {
+      type: Number,
+      require: false,
+      min: 0,
+    },
   },
   { timestamps: true }
 );

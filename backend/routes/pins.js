@@ -13,7 +13,6 @@ router.post("/", async (req, res) => {
 });
 
 //get pins
-
 router.get("/", async (req, res) => {
   try {
     const pins = await Pin.find();
@@ -21,6 +20,34 @@ router.get("/", async (req, res) => {
   } catch (err) {
     res.status(500).json(er);
   }
+});
+
+//add Review
+router.put("/addReview", async (req, res) => {
+  console.log(req.body.username);
+  const id = req.body.id;
+
+  // prettier-ignore
+  Pin.findByIdAndUpdate(
+    id,
+    {
+      $push: {
+        review: {
+          username: req.body.username,
+          title: req.body.title,
+          desc: req.body.desc,
+          rating: req.body.rating,
+          pictures: req.body.pictures,
+        },
+      },
+    },
+
+    { new: false },
+    (err, doc) => {
+      if (err) return console.log(err);
+      res.json(doc);
+    }
+  );
 });
 
 module.exports = router;
