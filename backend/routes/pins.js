@@ -22,17 +22,34 @@ router.get("/", async (req, res) => {
   }
 });
 
+//get all pin images
+router.post("/getAllPinImages", async (req, res) => {
+  const id = req.body.id;
+  try {
+    const mergedImages = [];
+    const pins = await Pin.findById(id);
+    for (var i = 0; i < pins.review.length; i++) {
+      for (var j = 0; j < pins.review[i].pictures.length; j++) {
+        mergedImages.push(pins.review[i].pictures[j]);
+      }
+    }
+    res.status(200).json(mergedImages);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 //add Review
 router.put("/addReview", async (req, res) => {
   console.log(req.body.username);
   const id = req.body.id;
 
-  // prettier-ignore
   Pin.findByIdAndUpdate(
     id,
     {
+      // prettier-ignore
       $push: {
-        review: {
+        'review': {
           username: req.body.username,
           title: req.body.title,
           desc: req.body.desc,
