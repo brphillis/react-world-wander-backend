@@ -39,9 +39,25 @@ router.post("/getAllPinImages", async (req, res) => {
   }
 });
 
-//add Review
+//gets all reviews for requested pin ID
+router.post("/getAllReviews", async (req, res) => {
+  const id = req.body.id;
+  try {
+    const mergedReviews = [];
+    const reviews = await Pin.findById(id);
+
+    reviews.review.forEach((e, i) => {
+      mergedReviews.push(e);
+    });
+
+    res.status(200).json(mergedReviews);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+//add review
 router.put("/addReview", async (req, res) => {
-  console.log(req.body.username);
   const id = req.body.id;
 
   Pin.findByIdAndUpdate(
@@ -59,6 +75,26 @@ router.put("/addReview", async (req, res) => {
       },
     },
 
+    { new: false },
+    (err, doc) => {
+      if (err) return console.log(err);
+      res.json(doc);
+    }
+  );
+});
+
+//add a like
+router.put("/addLike", async (req, res) => {
+  currentUser = req.body.currentUser;
+  const id = req.body.id;
+  const index = req.body.index;
+
+  Pin.findByIdAndUpdate(
+    id,
+    {
+      // prettier-ignore
+      $push: { ['review.' + index + '.likes'] :  currentUser  },
+    },
     { new: false },
     (err, doc) => {
       if (err) return console.log(err);
