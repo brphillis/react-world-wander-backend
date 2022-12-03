@@ -103,4 +103,24 @@ router.put("/addLike", async (req, res) => {
   );
 });
 
+//delete a like
+router.put("/deleteLike", async (req, res) => {
+  currentUser = req.body.currentUser;
+  const id = req.body.id;
+  const index = req.body.index;
+
+  Pin.findByIdAndUpdate(
+    id,
+    {
+      // prettier-ignore
+      $pull: { ['review.' + index + '.likes'] :  currentUser  },
+    },
+    { new: false },
+    (err, doc) => {
+      if (err) return console.log(err);
+      res.json(doc);
+    }
+  );
+});
+
 module.exports = router;

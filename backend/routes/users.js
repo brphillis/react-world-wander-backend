@@ -103,6 +103,17 @@ router.put("/updateProfilePicture", async (req, res) => {
   );
 });
 
+//GET PROFILE PICTURE
+router.post("/getProfilePicture", async (req, res) => {
+  const username = req.body.username;
+  try {
+    const users = await User.find({ username: username });
+    res.status(200).json(users);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 //LOGIN
 router.post("/login", async (req, res) => {
   try {
