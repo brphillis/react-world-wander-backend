@@ -48,7 +48,6 @@ router.post("/refresh", (req, res) => {
 //VERIFY
 const verify = (req, res, next) => {
   const authHeader = req.headers.authorization;
-  console.log("yelp");
   if (authHeader) {
     const token = authHeader.split(" ")[1];
 
