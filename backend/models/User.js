@@ -22,6 +22,7 @@ const UserSchema = new mongoose.Schema(
       type: String,
       require: true,
       min: 6,
+      max: 20,
     },
     contributions: {
       type: Number,

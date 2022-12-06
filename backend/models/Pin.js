@@ -5,6 +5,8 @@ const PinSchema = new mongoose.Schema(
     name: {
       type: String,
       required: true,
+      min: 3,
+      max: 15,
     },
     pinType: {
       type: String,
@@ -32,12 +34,13 @@ const PinSchema = new mongoose.Schema(
           type: String,
           required: true,
           min: 3,
-          max: 25,
+          max: 15,
         },
         desc: {
           type: String,
           required: true,
-          min: 3,
+          min: 30,
+          max: 250,
         },
         rating: {
           type: Number,
@@ -53,6 +56,7 @@ const PinSchema = new mongoose.Schema(
           type: Array,
           required: false,
         },
+        createdAt: { type: Date, default: Date.now },
       },
     ],
   },
