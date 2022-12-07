@@ -19,7 +19,6 @@ router.post("/send", async (req, res) => {
     .then((response) => response.json())
     .then((google_response) => res.json({ google_response }))
     .catch((error) => res.json({ error }));
-  console.log(res);
 });
 
 module.exports = router;
