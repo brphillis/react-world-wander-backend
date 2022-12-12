@@ -39,15 +39,21 @@ router.post("/getAllPinImages", async (req, res) => {
   }
 });
 
-//gets all reviews for requested pin ID
-router.post("/getAllReviews", async (req, res) => {
+//gets requested amount of reviews
+router.post("/getLimitedReviews", async (req, res) => {
   const id = req.body.id;
+
+  const startIndex = req.body.startIndex;
+  const endIndex = req.body.endIndex;
+
   try {
     const mergedReviews = [];
     const reviews = await Pin.findById(id);
 
-    reviews.review.forEach((e, i) => {
-      mergedReviews.push(e);
+    reviews.review.forEach((e, i = startIndex) => {
+      if (i < endIndex) {
+        mergedReviews.push(e);
+      }
     });
 
     res.status(200).json(mergedReviews);

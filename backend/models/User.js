@@ -24,6 +24,20 @@ const UserSchema = new mongoose.Schema(
       min: 6,
       max: 20,
     },
+    aboutMe: {
+      type: String,
+      require: false,
+      min: 25,
+      max: 250,
+    },
+    visited: {
+      type: Array,
+      require: false,
+    },
+    toVisit: {
+      type: Array,
+      require: false,
+    },
     contributions: {
       type: Number,
       require: false,
