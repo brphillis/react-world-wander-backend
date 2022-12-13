@@ -89,6 +89,35 @@ router.put("/addReview", async (req, res) => {
   );
 });
 
+//edit a review
+router.put("/updateReview", async (req, res) => {
+  const id = req.body.id;
+  const reviewid = req.body.reviewId;
+  const title = req.body.title;
+  const desc = req.body.desc;
+  const rating = req.body.rating;
+  const pictures = req.body.pictures;
+
+  Pin.findByIdAndUpdate(
+    {
+      _id: id,
+      "review._id": reviewid,
+    },
+    {
+      $set: {
+        "review.0.title": title,
+        "review.0.desc": desc,
+        "review.0.rating": rating,
+        "review.0.pictures": pictures,
+      },
+    },
+    (err, doc) => {
+      if (err) return console.log(err);
+      res.json(doc);
+    }
+  );
+});
+
 //add a like
 router.put("/addLike", async (req, res) => {
   currentUser = req.body.currentUser;
