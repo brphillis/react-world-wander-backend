@@ -98,19 +98,50 @@ router.put("/updateReview", async (req, res) => {
   const rating = req.body.rating;
   const pictures = req.body.pictures;
 
-  Pin.findByIdAndUpdate(
+  Pin.findOneAndUpdate(
     {
       _id: id,
-      "review._id": reviewid,
+      review: {
+        $elemMatch: {
+          _id: reviewid,
+        },
+      },
     },
     {
       $set: {
-        "review.0.title": title,
-        "review.0.desc": desc,
-        "review.0.rating": rating,
-        "review.0.pictures": pictures,
+        "review.$[outer].title": title,
+        "review.$[outer].desc": desc,
+        "review.$[outer].rating": rating,
+        "review.$[outer].pictures": pictures,
       },
     },
+    {
+      arrayFilters: [{ "outer._id": reviewid }],
+    },
+
+    (err, doc) => {
+      if (err) return console.log(err);
+      res.json(doc);
+    }
+  );
+});
+
+//need to set IF place has zero REVIEWS THEN DELETE PLACE
+
+//delete a review
+router.put("/deleteReview", async (req, res) => {
+  const id = req.body.id;
+  const reviewid = req.body.reviewId;
+  console.log(req);
+
+  Pin.findOneAndUpdate(
+    {
+      _id: id,
+    },
+    {
+      $pull: { review: { _id: reviewid } },
+    },
+
     (err, doc) => {
       if (err) return console.log(err);
       res.json(doc);

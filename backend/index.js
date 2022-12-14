@@ -5,6 +5,7 @@ const app = express();
 const pinRoute = require("./routes/pins");
 const userRoute = require("./routes/users");
 const verifyRoute = require("./routes/verify");
+const flaggedReviewRoute = require("./routes/flaggedreviews");
 
 dotenv.config();
 
@@ -28,6 +29,7 @@ mongoose
 app.use("/api/pins", pinRoute);
 app.use("/api/users", userRoute);
 app.use("/api/verify", verifyRoute);
+app.use("/api/flaggedreviews", flaggedReviewRoute);
 
 app.listen(8800, () => {
   console.log("backend server running");
