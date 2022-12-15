@@ -126,7 +126,21 @@ router.put("/updateReview", async (req, res) => {
   );
 });
 
-//need to set IF place has zero REVIEWS THEN DELETE PLACE
+//get a review
+router.post("/getReview", async (req, res) => {
+  const id = req.body.id;
+  const reviewid = req.body.reviewid;
+
+  Pin.findOne(
+    { _id: id },
+    { review: { $elemMatch: { _id: reviewid } } },
+
+    (err, doc) => {
+      if (err) return console.log(err);
+      res.json(doc.review);
+    }
+  );
+});
 
 //delete a review
 router.put("/deleteReview", async (req, res) => {
@@ -141,10 +155,22 @@ router.put("/deleteReview", async (req, res) => {
     {
       $pull: { review: { _id: reviewid } },
     },
-
     (err, doc) => {
-      if (err) return console.log(err);
-      res.json(doc);
+      if (err) {
+        return console.log(err);
+      } else {
+        if (doc.review.length === 1) {
+          Pin.findOneAndDelete(id, (err) => {
+            if (err) {
+              return res.send(err);
+            } else {
+              return res.status(200).json({ success: true });
+            }
+          });
+        } else {
+          res.json(doc);
+        }
+      }
     }
   );
 });

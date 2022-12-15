@@ -144,6 +144,7 @@ router.post("/login", async (req, res) => {
       _id: user._id,
       username: user.username,
       profilePicture: user.profilePicture,
+      role: user.role,
       accessToken,
       refreshToken,
     });

@@ -22,7 +22,11 @@ const FlaggedReviewSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    id: {
+    pinId: {
+      type: String,
+      required: true,
+    },
+    reviewId: {
       type: String,
       required: true,
     },
