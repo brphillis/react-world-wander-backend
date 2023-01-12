@@ -102,8 +102,88 @@ router.put("/updateProfilePicture", async (req, res) => {
   );
 });
 
-//GET PROFILE PICTURE
-router.post("/getProfilePicture", async (req, res) => {
+//UPDATE ABOUT ME
+router.put("/updateAboutMe", async (req, res) => {
+  const id = req.body.id;
+  const aboutMe = req.body.aboutMe;
+
+  User.findByIdAndUpdate(
+    id,
+    { $set: { aboutMe: aboutMe } },
+    { new: false },
+    (err, doc) => {
+      if (err) return console.log(err);
+      res.json(doc);
+    }
+  );
+});
+
+//UPDATE VISITED
+router.put("/updateVisited", async (req, res) => {
+  const id = req.body.id;
+  const visited = req.body.visited;
+
+  User.findByIdAndUpdate(
+    id,
+    { $set: { visited: visited } },
+    { new: false },
+    (err, doc) => {
+      if (err) return console.log(err);
+      res.json(doc);
+    }
+  );
+});
+
+//UPDATE TO VISIT
+router.put("/updateToVisit", async (req, res) => {
+  const id = req.body.id;
+  const toVisit = req.body.toVisit;
+
+  User.findByIdAndUpdate(
+    id,
+    { $set: { toVisit: toVisit } },
+    { new: false },
+    (err, doc) => {
+      if (err) return console.log(err);
+      res.json(doc);
+    }
+  );
+});
+
+//UPDATE CONTRIBUTIONS
+router.put("/updateContributions", async (req, res) => {
+  const id = req.body.id;
+  const contributions = req.body.contributions;
+
+  User.findByIdAndUpdate(
+    id,
+    { $set: { contributions: contributions } },
+    { new: false },
+    (err, doc) => {
+      if (err) return console.log(err);
+      res.json(doc);
+    }
+  );
+});
+
+//UPDATE LIKES
+router.put("/updateLikes", async (req, res) => {
+  const id = req.body.id;
+  const likes = req.body.totalLikes;
+
+  User.findByIdAndUpdate(
+    id,
+    { $set: { totalLikes: likes } },
+    { new: false },
+    (err, doc) => {
+      if (err) return console.log(err);
+      res.json(doc);
+    }
+  );
+});
+
+//GET PROFILE
+router.post("/getProfile", async (req, res) => {
   const username = req.body.username;
   try {
     const users = await User.find({ username: username });

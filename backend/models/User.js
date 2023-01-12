@@ -32,7 +32,7 @@ const UserSchema = new mongoose.Schema(
       type: String,
       require: false,
       min: 25,
-      max: 250,
+      max: 1000,
     },
     visited: {
       type: Array,
@@ -43,6 +43,11 @@ const UserSchema = new mongoose.Schema(
       require: false,
     },
     contributions: {
+      type: Number,
+      require: false,
+      min: 0,
+    },
+    totalLikes: {
       type: Number,
       require: false,
       min: 0,

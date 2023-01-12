@@ -34,13 +34,13 @@ const PinSchema = new mongoose.Schema(
           type: String,
           required: true,
           min: 3,
-          max: 15,
+          max: 25,
         },
         desc: {
           type: String,
           required: true,
           min: 30,
-          max: 250,
+          max: 1000,
         },
         rating: {
           type: Number,
